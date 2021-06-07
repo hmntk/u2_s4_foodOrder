@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <style>
+        * {
+            border-radius: 10px;
+        }
+        body {
+            width: 70%;
+            margin: auto;
+        }
+        .element {
+            width: 20%;
+            margin: 2%;
+            float: left;
+            background: lightblue;
+        }
+        img {
+            width: 50%;
+        }
+        .random2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="random2">
+        <h1>hello and welcome to cart</h1>
+        <button onclick="submitOrder()">Sumbit Order</button>
+    </div>
+</body>
+<script>
+
+    function submitOrder() {
+        setTimeout(function(){ alert("our order is accepted"); }, 0);
+        setTimeout(function(){ alert("Your order is being cooked"); }, 3000);
+        setTimeout(function(){ alert("Your order is ready"); }, 8000);
+        setTimeout(function(){ alert("Order out for delivery"); }, 10000);
+        setTimeout(function(){ alert("Order delivered"); }, 12000);
+    }
+
+    let parent = document.body
+
+    let cartParsed = JSON.parse(localStorage.getItem('finalCart'))
+    console.log(cartParsed)
+    
+
+    for (var i = 0; i < cartParsed.length; i++) {
+        let div = document.createElement('div')
+        div.setAttribute('class', 'element')
+
+        let image = document.createElement('img')
+        let price = document.createElement('h6')
+        let descrip = document.createElement('p')
+        let time = document.createElement('h6')
+
+        image.src = cartParsed[i].image;
+        price.innerHTML = cartParsed[i].price;
+        descrip.innerHTML = cartParsed[i].description;
+        time.innerHTML = cartParsed[i].timePrep;
+
+        div.append(image, price, descrip, time)
+        parent.append(div)
+    }
+</script>
+</html>

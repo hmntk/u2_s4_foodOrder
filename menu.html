@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <style>
+        
+        * {
+            border-radius: 10px;
+        }
+        body {
+            width: 70%;
+            margin: auto;
+        }
+        .element {
+            width: 20%;
+            margin: 2%;
+            float: left;
+            background: lightblue;
+        }
+        img {
+            width: 50%;
+        }
+        .random {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="random">
+        <h1>hello and welcome to menu page</h1>
+        <button onclick="gotoCart()">Go to Cart</button>
+    </div>
+</body>
+<script>
+
+    function gotoCart() {
+        window.location.href = "cart.html"
+    }
+
+    let menu = `[
+        {
+            "image": "https://lh3.googleusercontent.com/HA2SKpc6gDJXaQs4hAX1mfzVCxv2uD5XL03QA9eMR4GSqov7vFTIB3eeY7pyriLaEAzgOwy2dIfYtC_p3keB6Qc=s640-c-rw-v1-e365",
+            "price": 200,
+            "description": "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
+            "timePrep": 20
+        },
+        {
+            "image": "https://lh3.googleusercontent.com/HA2SKpc6gDJXaQs4hAX1mfzVCxv2uD5XL03QA9eMR4GSqov7vFTIB3eeY7pyriLaEAzgOwy2dIfYtC_p3keB6Qc=s640-c-rw-v1-e365",
+            "price": 300,
+            "description": "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
+            "timePrep": 15
+        },
+        {
+            "image": "https://lh3.googleusercontent.com/HA2SKpc6gDJXaQs4hAX1mfzVCxv2uD5XL03QA9eMR4GSqov7vFTIB3eeY7pyriLaEAzgOwy2dIfYtC_p3keB6Qc=s640-c-rw-v1-e365",
+            "price": 70,
+            "description": "lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum ",
+            "timePrep": 5
+        }
+    ]`
+
+    localStorage.setItem('foodMenu', menu)
+    let parent = document.body
+    let foodMenuParsed = JSON.parse(menu)
+    console.log(foodMenuParsed)
+    
+
+    for (var i = 0; i < foodMenuParsed.length; i++) {
+        let div = document.createElement('div')
+        div.setAttribute('class', 'element')
+
+        let image = document.createElement('img')
+        let price = document.createElement('h6')
+        let descrip = document.createElement('p')
+        let time = document.createElement('h6')
+
+        let addCart = document.createElement('button')
+        addCart.innerHTML = 'Add to cart'
+        addCart.addEventListener('click', addtoCart)
+
+        let f = foodMenuParsed[i]
+        function addtoCart() {
+            let elt = f;
+            console.log(elt)
+            let cart;
+            cart = localStorage.getItem('finalCart')
+
+            if (cart == null) {
+                cart = [];
+            }
+            else {
+                cart = JSON.parse(localStorage.getItem('finalCart'))
+            }
+
+            cart.push(elt);
+
+            localStorage.setItem('finalCart', JSON.stringify(cart))
+        }
+
+        image.src = foodMenuParsed[i].image;
+        price.innerHTML = foodMenuParsed[i].price;
+        descrip.innerHTML = foodMenuParsed[i].description;
+        time.innerHTML = foodMenuParsed[i].timePrep;
+
+        div.append(image, price, descrip, time, addCart)
+        parent.append(div)
+    }
+</script>
+</html>

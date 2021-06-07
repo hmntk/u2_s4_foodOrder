@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- <script src="unified.js"></script> -->
+</head>
+<body>
+    <h1>hello and welcome to login</h1>
+    <form class="login_form">
+        <input type="email" name="lf_email" placeholder="enter email" required><br>
+        <input type="password" name="lf_password" placeholder="enter password" required><br>
+        <button onclick="login()">Log in to ecstasy</button>
+    </form>
+</body>
+<script>
+        document.getElementsByClassName("login_form")[0].addEventListener("click", function(event){
+    event.preventDefault()
+    });
+    function login() {
+        let lform = document.getElementsByClassName('login_form')[0]
+
+        let l_email = lform.lf_email.value;
+        let l_password = lform.lf_password.value;
+
+        let userData = JSON.parse(localStorage.getItem('users'))
+        console.log(userData)
+
+        let isPresent = true;
+        for (i = 0; i <userData.length; i++) {
+            if(userData[i].email == l_email && userData[i].password == l_password) {
+                console.log('accepted')
+                isPresent = true;
+                break;
+            }
+            else {
+                console.log('user not found')
+                isPresent = false;
+            }
+        }
+            if (isPresent) {
+                window.location.href = "menu.html"
+            }
+            else {
+                alert('user not found')
+            }
+    }
+</script>
+</html>
